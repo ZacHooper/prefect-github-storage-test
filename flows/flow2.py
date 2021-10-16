@@ -1,6 +1,6 @@
 from prefect import task, Flow
 from prefect.run_configs import DockerRun
-from prefect.storage import Docker
+from prefect.storage.github import GitHub
 from time import sleep
 
 def sleepy_function(func):
@@ -32,9 +32,9 @@ with Flow("prefect-docker-example") as flow:
 # flow.run() # If you want to test the flow uncomment this line and run the python script
 
 flow.run_config = DockerRun(
-    image="zhooper/prefect-docker-example-etl1"
+    image="zhooper/prefect-docker-example-etl2"
 )
 
-flow.storage = Docker(registry_url="zhooper", image_name="prefect-docker-example-etl1")
+flow.storage = GitHub(repo="ZacHooper/prefect-github-storage-test", path="/flows/flow.py")
 
 flow.register("prefect-docker-test")
