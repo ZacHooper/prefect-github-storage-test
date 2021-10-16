@@ -12,17 +12,17 @@ def sleepy_function(func):
 @sleepy_function
 @task
 def extract():
-    print("Doing the Extract for ETL1")
+    print("Doing the Extract for ETL2")
 
 @sleepy_function
 @task
 def transfrom():
-    print("Doing the transform for ETL1")
+    print("Doing the transform for ETL2")
 
 @sleepy_function
 @task
 def load():
-    print("Doing the load for ETL1")
+    print("Doing the load for ETL2")
 
 with Flow("prefect-docker-example") as flow:
     extract()
@@ -31,10 +31,5 @@ with Flow("prefect-docker-example") as flow:
     
 # flow.run() # If you want to test the flow uncomment this line and run the python script
 
-flow.run_config = DockerRun(
-    image="zhooper/prefect-docker-example-etl2"
-)
-
-flow.storage = GitHub(repo="ZacHooper/prefect-github-storage-test", path="/flows/flow.py")
-
-flow.register("prefect-docker-test")
+flow.run_config = DockerRun()
+flow.storage = GitHub(repo="ZacHooper/prefect-github-storage-test", path="/flows/flow2.py")
